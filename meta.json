@@ -1,0 +1,1 @@
+{"config": {"sentenceField": "Sentence", "wordField": "Expression", "destinationField": "ClozedSentence", "noteTypes": "YOMITAN_example_sentences", "maskString": "\u25fc\u25fc\u25fc", "lookupOnAdd": true, "bulkActionLabel": "Generate Cloze Masks", "debug": true}}
