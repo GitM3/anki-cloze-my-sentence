@@ -85,18 +85,45 @@ def log(*msg):
 ###############################################################################
 
 def generate_cloze_sentence(sentence: str, word: str, mask: str) -> str | None:
-    """Return sentence with first occurrence of word replaced by mask."""
+    """
+    Replace inflected forms of `word` by gradually shortening it:
+    1. Full match (exact)
+    2. Prefix matching (N-1, N-2, ...)
+    3. Kanji-only fallback
+    """
     if not sentence or not word:
         return None
 
+    # 1) Try full word first
     idx = sentence.find(word)
-    if idx == -1:
-        return None
+    if idx != -1:
+        before = sentence[:idx]
+        after = sentence[idx + len(word):]
+        return before + mask + after
 
-    # Replace only the first occurrence #TODO: More?
-    before = sentence[:idx]
-    after = sentence[idx + len(word):]
-    return before + mask + after
+    # 2) Generate prefixes (longest → shortest)
+    prefixes: list[str] = []
+    for i in range(len(word) - 1, 0, -1):
+        prefixes.append(word[:i])
+
+    # 3) Try each prefix
+    for prefix in prefixes:
+        idx = sentence.find(prefix)
+        if idx != -1:
+            before = sentence[:idx]
+            after = sentence[idx + len(prefix):]
+            return before + mask + after
+
+    # 4) Kanji-only fallback
+    kanji_chars = [c for c in word if "\u4e00" <= c <= "\u9fff"]
+    for kanji in kanji_chars:
+        idx = sentence.find(kanji)
+        if idx != -1:
+            before = sentence[:idx]
+            after = sentence[idx + len(kanji):]
+            return before + mask + after
+
+    return None
 
 
 def populate_cloze(note) -> bool:
