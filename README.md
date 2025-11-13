@@ -1,4 +1,3 @@
-```markdown
 # Cloze Mask Auto-Fill for Anki
 
 Automatically generate a **contextual cloze-style mask** inside a sentence by
@@ -106,24 +105,3 @@ In the Browser:
 - regex-based replacement
 
 Open an issue or PR if you'd like to extend functionality.
-
----
-
-## 📄 License
-
-MIT License  
-Copyright © 2025
-
----
-
-## ❤️ Acknowledgements
-
-This add-on was developed as part of a custom Japanese-learning workflow integrating:
-- Contextual vocabulary recall
-- Multi-sentence exposure
-- Personal example-sentence generation pipelines
-
-Inspired by the structure and design of the author's **Kanji Constituent Auto-Fill** add-on.
-
----
-```
